@@ -1,5 +1,4 @@
-CREATE TABLE IF NOT EXISTS users
-VALUES (
+CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(20),
   password VARCHAR(20),
@@ -11,3 +10,7 @@ CREATE TABLE IF NOT EXISTS posts (
   img TEXT,
   content TEXT,
   author_id INTEGER REFERENCES users(id));
+
+INSERT INTO users (username, password, profile_pic)
+VALUES ('user2', 'rawfodog', 'https://i.imgur.com/EuJVSbt.png'),
+      ('user1', 'passw0rd', 'https://i.imgur.com/95R0VzR.png');

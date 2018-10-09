@@ -5,8 +5,9 @@ require('dotenv').config();
 
 const port = 3001;
 
-// const {
-  // } = require('./controller')
+const {
+  getUsers
+  } = require('./controller')
   
   const app = express();
   app.use(json());
@@ -15,7 +16,7 @@ massive(process.env.SERVER_CONNECTION_STRING)
   .then(dbInst => app.set('db', dbInst))
   .catch(err => console.log(`Error in massive() - ${err}`));
 
-// app.get();
+app.get('/api/users', getUsers);
 // app.post();
 // app.put();
 // app.delete();
