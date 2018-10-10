@@ -14,3 +14,11 @@ CREATE TABLE IF NOT EXISTS posts (
 INSERT INTO users (username, password, profile_pic)
 VALUES ('user2', 'rawfodog', 'https://i.imgur.com/EuJVSbt.png'),
       ('user1', 'passw0rd', 'https://i.imgur.com/95R0VzR.png');
+
+
+static files
+sessions
+one-to-many
+join
+match params
+queries

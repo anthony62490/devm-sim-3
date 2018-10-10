@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 function Nav(props)
 {
-  console.log('props', props);
   return (
     <div>
       <Link to='/dashboard'><button>
