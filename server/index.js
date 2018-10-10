@@ -3,10 +3,11 @@ const {json} = require('body-parser');
 const massive = require('massive');
 require('dotenv').config();
 
-const port = 3001;
+const port = process.env.SERVER_PORT || 3001;
 
 const {
-  getUsers
+  getUsers,
+  addUser
   } = require('./controller')
   
   const app = express();
@@ -16,8 +17,10 @@ massive(process.env.SERVER_CONNECTION_STRING)
   .then(dbInst => app.set('db', dbInst))
   .catch(err => console.log(`Error in massive() - ${err}`));
 
+app.use( express.static( `${__dirname}/../build` ) );
+
 app.get('/api/users', getUsers);
-// app.post();
+app.post('/api/user', addUser);
 // app.put();
 // app.delete();
 
