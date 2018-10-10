@@ -18,8 +18,28 @@ const addUser = (req, res, next) =>
     .catch(err => console.log(`Error in add_users() - ${err}`))
 }
 
+const loginUser = (req, res, next) => 
+{
+  const dbInst = req.app.get('db');
+  const { uname, pword } = req.body;
+
+  dbInst.login_user([uname, pword])
+    .then(response => {
+      // 
+      req.session.userID = response[0].id
+      res.status(200).json(response)})
+    .catch(err => console.log(`Error in login_user() - ${err}`))
+}
+
+const logoutUser = (req, res, next) => 
+{
+  req.session.destroy();
+}
+
 module.exports =
 {
   getUsers,
-  addUser
+  addUser,
+  loginUser,
+  logoutUser
 };
