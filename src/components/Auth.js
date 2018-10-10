@@ -20,6 +20,16 @@ class Auth extends Component
     this.props.history.push('/dashboard');
   }
 
+  async handleLogin()
+  {
+    const response = await axios.post('/api/auth/login', {
+      uname: this.state.unameEntry,
+      pword: this.state.pwordEntry
+    })
+    console.log('response', response.data[0]);
+    this.props.history.push('/dashboard');
+  }
+
   render() 
   {
     return (
@@ -28,7 +38,7 @@ class Auth extends Component
         <input onChange={(e) => this.setState({pwordEntry: e.target.value})} value={this.state.pwordEntry} placeholder='password'/>
         <input onChange={(e) => this.setState({imgEntry: e.target.value})} value={this.state.imgEntry} placeholder='profile pic'/>
         <br/>
-        <button>Login</button>
+        <button onClick={() => this.handleLogin()}>Login</button>
         <button onClick={() => this.handleRegister()}>Register</button>
       </div>
     ); //return
