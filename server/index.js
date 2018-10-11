@@ -12,7 +12,8 @@ const {
   addUser,
   loginUser,
   logoutUser,
-  addPost
+  addPost,
+  getUserInfo
   } = require('./controller')
   
 const app = express();
@@ -32,6 +33,7 @@ massive(process.env.SERVER_CONNECTION_STRING)
 app.use( express.static( `${__dirname}/../build` ) );
 
 app.get('/api/users', getUsers);
+app.get('/api/auth/me', getUserInfo)
 app.post('/api/user', addUser);
 app.post('/api/auth/login', loginUser)
 app.post('/api/auth/logout', logoutUser)

@@ -47,11 +47,21 @@ const addPost = (req, res, next) =>
     .catch(err => console.log(`Error in add_post() - ${err}`));
 }
 
+const getUserInfo = (req, res, next) => 
+{
+  const dbInst = req.app.get('db');
+  console.log('req.query', req.query);
+  // dbInst.get_user_info(id)
+  //   .then(response => res.status(200).send(response))
+  //   .catch(err => console.log(`Error in get_user_info() - ${err}`));
+}
+
 module.exports =
 {
   getUsers,
   addUser,
   loginUser,
   logoutUser,
-  addPost
+  addPost,
+  getUserInfo
 };
