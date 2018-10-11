@@ -15,7 +15,7 @@ const addUser = (req, res, next) =>
 
   dbInst.add_user([uname, pword, img])
     .then(response => res.status(200).json(response))
-    .catch(err => console.log(`Error in add_users() - ${err}`))
+    .catch(err => console.log(`Error in add_user() - ${err}`));
 }
 
 const loginUser = (req, res, next) => 
@@ -25,10 +25,10 @@ const loginUser = (req, res, next) =>
 
   dbInst.login_user([uname, pword])
     .then(response => {
-      // 
-      req.session.userID = response[0].id
-      res.status(200).json(response)})
-    .catch(err => console.log(`Error in login_user() - ${err}`))
+      // Set the user ID to the session
+      req.session.userID = response[0].id;
+      res.status(200).json(response);})
+    .catch(err => console.log(`Error in login_user() - ${err}`));
 }
 
 const logoutUser = (req, res, next) => 
@@ -36,10 +36,22 @@ const logoutUser = (req, res, next) =>
   req.session.destroy();
 }
 
+const addPost = (req, res, next) => 
+{
+  const dbInst = req.app.get('db');
+  const { userID } = req.session;
+  const { postTitle, postImage, postBody } = req.body;
+
+  dbInst.add_post([userID, postTitle, postImage, postBody])
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(`Error in add_post() - ${err}`));
+}
+
 module.exports =
 {
   getUsers,
   addUser,
   loginUser,
-  logoutUser
+  logoutUser,
+  addPost
 };

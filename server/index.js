@@ -11,7 +11,8 @@ const {
   getUsers,
   addUser,
   loginUser,
-  logoutUser
+  logoutUser,
+  addPost
   } = require('./controller')
   
 const app = express();
@@ -34,6 +35,7 @@ app.get('/api/users', getUsers);
 app.post('/api/user', addUser);
 app.post('/api/auth/login', loginUser)
 app.post('/api/auth/logout', logoutUser)
+app.post('/api/post', addPost)
 // app.put();
 // app.delete();
 
