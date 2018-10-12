@@ -47,6 +47,23 @@ const addPost = (req, res, next) =>
     .catch(err => console.log(`Error in add_post() - ${err}`));
 }
 
+const getPostById = (req, res, next) => 
+{
+  const dbInst = req.app.get('db');
+  const id = parseInt(req.query.id);
+  dbInst.get_post_by_id(id)
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(`Error in get_post_by_id() - ${err}`));
+}
+
+const getPostsByUser = (req, res, next) => 
+{
+  const dbInst = req.app.get('db');
+  dbInst.get_posts_by_user_id(parseInt(req.params.userId))
+    .then(response => res.status(200).send(response))
+    .catch(err => console.log(`Error in get_posts_by_user_id() - ${err}`));
+}
+
 const getUserInfo = (req, res, next) => 
 {
   const dbInst = req.app.get('db');
@@ -63,5 +80,7 @@ module.exports =
   loginUser,
   logoutUser,
   addPost,
+  getPostById,
+  getPostsByUser,
   getUserInfo
 };

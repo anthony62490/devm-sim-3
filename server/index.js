@@ -13,6 +13,8 @@ const {
   loginUser,
   logoutUser,
   addPost,
+  getPostById,
+  getPostsByUser,
   getUserInfo
   } = require('./controller')
   
@@ -33,11 +35,13 @@ massive(process.env.SERVER_CONNECTION_STRING)
 app.use( express.static( `${__dirname}/../build` ) );
 
 app.get('/api/users', getUsers);
-app.get('/api/auth/me', getUserInfo)
+app.get('/api/auth/me', getUserInfo);
+app.get('/api/post', getPostById);
+app.get('/api/posts/:userId', getPostsByUser);
 app.post('/api/user', addUser);
-app.post('/api/auth/login', loginUser)
-app.post('/api/auth/logout', logoutUser)
-app.post('/api/post', addPost)
+app.post('/api/auth/login', loginUser);
+app.post('/api/auth/logout', logoutUser);
+app.post('/api/post', addPost);
 // app.put();
 // app.delete();
 
