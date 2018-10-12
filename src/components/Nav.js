@@ -1,32 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-function handleLogout()
-{
-  axios.post('/api/auth/logout')
-  .then(response => console.log('LogOut response', response))
-  .catch(err => console.log('error in handleLogout():', err));
-}
+import { getUserInfo } from '../redux/reducer';
 
-function Nav(props)
+class Nav extends Component
 {
-  return (
-    <div>
-      <Link to='/dashboard'><button>
-        Home
-      </button></Link>
-      <Link to='/new'><button>
-        New Post
-      </button></Link>
-      <Link to='/'><button onClick={handleLogout}>
-        Logout
-      </button></Link>
-    </div>
-  );
+  componentDidMount()
+  {
+    this.props.getUserInfo();
+  }
+
+  handleLogout()
+  {
+    axios.post('/api/auth/logout')
+    .then(response => console.log('LogOut response', response))
+    .catch(err => console.log('error in handleLogout():', err));
+  }
+
+  render()
+  {
+    return (
+      <div>
+        <Link to='/dashboard'><button>
+          Home
+        </button></Link>
+        <Link to='/new'><button>
+          New Post
+        </button></Link>
+        <Link to='/'><button onClick={this.handleLogout}>
+          Logout
+        </button></Link>
+      </div>
+    );
+  }
 };
 
 const mapStateToProps = (state) => state;
 
-export default connect(mapStateToProps, {})(Nav);
+export default connect(mapStateToProps, { getUserInfo })(Nav);

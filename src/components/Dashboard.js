@@ -8,10 +8,10 @@ class Dashboard extends Component
 {
   componentDidMount()
   {
-    if(this.props.id)
-    {
+    // if(this.props.id)
+    // {
       this.props.getPostsByUser(this.props.id);
-    }
+    // }
   }
 
   render() 

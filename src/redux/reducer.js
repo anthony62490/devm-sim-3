@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SAVE_USER_INFO = "SAVE_USER_INFO";
+const GET_USER_INFO = "GET_USER_INFO";
 const GET_POST_BY_ID = "GET_POST_BY_ID";
 const GET_POSTS_BY_USER = "GET_POSTS_BY_USER";
 
@@ -15,12 +15,17 @@ export default function reducer(state = initialState, action)
 {
   switch(action.type)
   {
-    case SAVE_USER_INFO:
-      return {
-        ...state,
-        id: action.payload.id,
-        username: action.payload.username,
-        profilePic: action.payload.profile_pic
+    case `${GET_USER_INFO}_FULFILLED`:
+      if(action.payload.data){
+        return {
+          ...state,
+          id: action.payload.data.userID,
+          username: action.payload.data.userName,
+          profilePic: action.payload.data.userPic
+        };
+      }
+      else return {
+        ...state
       };
     case `${GET_POST_BY_ID}_FULFILLED`:
       console.log('GET_POST_BY_ID', action.payload);
@@ -31,6 +36,7 @@ export default function reducer(state = initialState, action)
       console.log('Error - GET_POST_BY_ID_REJECTED');
       return state;
     case `${GET_POSTS_BY_USER}_FULFILLED`:
+      console.log('hit');
       return {
         ...state,
         userPosts: action.payload.data
@@ -43,10 +49,10 @@ export default function reducer(state = initialState, action)
   }
 }
 
-export function saveUserInfo(userObj) {
+export function getUserInfo() {
   return {
-    type: SAVE_USER_INFO,
-    payload: userObj
+    type: GET_USER_INFO,
+    payload: axios.get('/api/auth/me')
   };
 }
 
@@ -58,6 +64,7 @@ export function getPostByID(id) {
 }
 
 export function getPostsByUser(userId) {
+  console.log('userId', userId);
   return {
     type: GET_POSTS_BY_USER,
     payload: axios.get(`/api/posts/${userId}`)

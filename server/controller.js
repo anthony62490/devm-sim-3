@@ -27,6 +27,9 @@ const loginUser = (req, res, next) =>
     .then(response => {
       // Set the user ID to the session
       req.session.userID = response[0].id;
+      req.session.userName = response[0].username;
+      req.session.userPic = response[0].profile_pic;
+
       res.status(200).json(response);})
     .catch(err => console.log(`Error in login_user() - ${err}`));
 }
@@ -67,10 +70,12 @@ const getPostsByUser = (req, res, next) =>
 const getUserInfo = (req, res, next) => 
 {
   const dbInst = req.app.get('db');
-  console.log('req.query', req.query);
-  // dbInst.get_user_info(id)
-  //   .then(response => res.status(200).send(response))
-  //   .catch(err => console.log(`Error in get_user_info() - ${err}`));
+  // console.log('req', req.session);
+  res.status(200).json({
+    userID:req.session.userID,
+    userName:req.session.userName,
+    userPic:req.session.userPic
+  })
 }
 
 module.exports =
