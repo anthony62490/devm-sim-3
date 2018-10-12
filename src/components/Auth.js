@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
+
+import { saveUserInfo } from '../redux/reducer';
 
 class Auth extends Component 
 {
@@ -16,7 +19,7 @@ class Auth extends Component
       pword: this.state.pwordEntry,
       img: this.state.imgEntry
     })
-    console.log('response', response.data[0]);
+    this.props.saveUserInfo(response.data[0]);
     this.props.history.push('/dashboard');
   }
 
@@ -26,7 +29,7 @@ class Auth extends Component
       uname: this.state.unameEntry,
       pword: this.state.pwordEntry
     })
-    console.log('response', response.data[0]);
+    this.props.saveUserInfo(response.data[0]);
     this.props.history.push('/dashboard');
   }
 
@@ -45,4 +48,6 @@ class Auth extends Component
   }
 }
 
-export default Auth;
+const mapStateToProps = (state) => state;
+
+export default connect(mapStateToProps, { saveUserInfo })(Auth);
