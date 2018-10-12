@@ -20,5 +20,5 @@ DONE static files
 DONE sessions
 DONE one-to-many
 DONE join
-  match params
-  queries
+DONE  match params
+DONE queries
